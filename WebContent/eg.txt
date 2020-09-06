@@ -1,0 +1,10 @@
+//Product app
+1. update product  -> product Id  , product name , product price
+2. delete proudct  -> product Id
+
+
+// Items List app
+1. create item
+2. list items 
+3. update item
+4. delete item 
