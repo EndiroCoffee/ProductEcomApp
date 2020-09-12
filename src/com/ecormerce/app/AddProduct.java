@@ -3,6 +3,7 @@ package com.ecormerce.app;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -58,14 +59,22 @@ public class AddProduct extends HttpServlet {
 			if(conn != null) {
 				
 				// 2. Create a query 
-				String query  = "insert into eproduct(name,price) values('"+name+"',"+price+")";
+				// String query  = "insert into eproduct(name,price) values('"+name+"',"+price+")";				
+				String query = "insert into eproduct(name,price) values(? , ?)";
+				
 				// 3. Create a statement
-				Statement stm = conn.getConnection().createStatement();
+				PreparedStatement pstm = conn.getConnection().prepareStatement(query);
+				
+				
+				// 4. set Parameter
+				pstm.setString(1, name);
+				pstm.setInt(2, price);
+				
 				// 4. Execute Query 
-				int noOfRowsAffected = stm.executeUpdate(query);
+				int noOfRowsAffected = pstm.executeUpdate();
 				out.print("<h3> No of Product added "+noOfRowsAffected +"</h3>");
 				
-				stm.close();
+				pstm.close();
 			}	
 			
 			conn.closeConnection();
