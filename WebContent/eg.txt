@@ -8,3 +8,39 @@
 2. list items 
 3. update item
 4. delete item 
+
+
+///  stored procedure
+DELIMITER $$
+CREATE PROCEDURE add_eproduct(IN pname varchar(100), IN pprice decimal(10,2)) 
+INSERT INTO eproduct(name,price) VALUES(pname,pprice)
+$$
+DELIMITER;
+
+
+// 2.
+DELIMITER $$
+CREATE PROCEDURE find_eproduct(IN pid int(100)) 
+SELECT * from eproduct where p_id=pid;
+$$
+DELIMITER;
+
+
+// 3.
+DELIMITER $$
+CREATE PROCEDURE find_total_eproducts(OUT the_count INT) 
+SELECT COUNT(*) INTO the_count from eproduct ;
+$$
+DELIMITER;
+
+// 4.
+DELIMITER $$
+CREATE PROCEDURE find_total_eproducts(INOUT pname varchar(100)) 
+
+SET pname = concat("Best Product So far " , pname, " Ever !");
+
+$$
+DELIMITER;
+
+
+
